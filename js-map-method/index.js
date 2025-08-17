@@ -118,12 +118,7 @@ const farArr = tempArr.map((temp) => (temp * 9) / 5 + 32);
 // [10, 20, 30] → [false, false, true]
 
 const numbArr = [10, 20, 30];
-let averageVal = 0;
-
-for (const el of numbArr) {
-  averageVal += el;
-}
-
+const averageVal = numbArr.reduce((acc, el) => acc + el, 0);
 const newNumbArr = numbArr.map((num) => num > averageVal / numArr.length);
 
 // console.log(newNumbArr);
