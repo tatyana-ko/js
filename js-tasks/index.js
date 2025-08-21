@@ -10,12 +10,21 @@ const objB = { a: 3, c: 6, d: 3 };
 function combine(...obj) {
   const res = obj.reduce((acc, val) => {
     for (const key in val) {
-      return {
-        ...acc, 
-        acc[key] = 0
+      if (!acc[key]) {
+        return {
+          ...acc,
+          [key]: val[key],
+        };
+      } else {
+        return {
+          ...acc,
+          [key]: acc[key] + val[key],
+        };
       }
     }
   }, {});
+
+  return res;
 }
 
 console.log(combine(objA, objB));
