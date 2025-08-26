@@ -1,30 +1,45 @@
-//12 -> '10 + 2'
-//45 -> '40+5'
-//70304 => '70000 + 300 + 4'
+function Counter({ root, initialValue, step = 1 }) {
+  this._value = initialValue;
+  this._step = step;
+  this._root = root;
 
-function parse(num) {}
-
-const objA = { a: 10, b: 20, c: 30 };
-const objB = { a: 3, c: 6, d: 3 };
-
-function combine(...obj) {
-  const res = obj.reduce((acc, val) => {
-    for (const key in val) {
-      if (!acc[key]) {
-        return {
-          ...acc,
-          [key]: val[key],
-        };
-      } else {
-        return {
-          ...acc,
-          [key]: acc[key] + val[key],
-        };
-      }
-    }
-  }, {});
-
-  return res;
+  this._refs = this._getRefs(this._root);
+  this.changeUi();
+  this.bindEvents();
 }
 
-console.log(combine(objA, objB));
+Counter.prototype.increment = function () {
+  this._value += this._step;
+};
+
+Counter.prototype.decrement = function () {
+  this._value -= this._step;
+};
+
+Counter.prototype._getRefs = function (root) {
+  const refs = {};
+
+  refs.container = document.querySelector(root);
+  refs.incrementBtn = refs.container.querySelector("[data-incrementBtn]");
+  refs.decrementBtn = refs.container.querySelector("[data-decrementBtn]");
+  refs.value = refs.container.querySelector("[data-value]");
+
+  return refs;
+};
+
+Counter.prototype.bindEvents = function () {
+  this._refs.incrementBtn.addEventListener("click", () => {
+    this.increment();
+    this.changeUi();
+  });
+  this._refs.decrementBtn.addEventListener("click", () => {
+    this.decrement();
+    this.changeUi();
+  });
+};
+
+Counter.prototype.changeUi = function () {
+  this._refs.value.textContent = this._value;
+};
+
+const counter = new Counter({ root: "#container", initialValue: 10 });
