@@ -113,8 +113,90 @@ function XO(str) {
 
 // 7.
 
-function friend(friends){
-  return friends.filter(name => name.length === 4)
+function friend(friends) {
+  return friends.filter((name) => name.length === 4);
 }
 
-console.log(friend(["Ryan", "Jimmy", "123", "4", "Cool Man"]));
+// console.log(friend(["Ryan", "Jimmy", "123", "4", "Cool Man"]));
+
+// 8.
+
+function isPangram(string) {
+  const arrOfChar = string.split("");
+
+  const filtredString = arrOfChar
+    .filter((l) => l.toLowerCase() !== l.toUpperCase())
+    .map((l) => l.toLowerCase());
+
+  const uniqueChar = new Set(filtredString);
+
+  return uniqueChar.size === 26;
+}
+
+// console.log(isPangram("The quick brown fox jumps over the lazy dog."));
+// console.log(isPangram("This is not a pangram."));
+
+// 9.
+function deleteNth(arr, n) {
+  const res = [];
+  const count = {};
+
+  arr.forEach((el) => {
+    if (!count[el]) {
+      count[el] = 1;
+      res.push(el);
+    } else if (count[el] < n) {
+      count[el] += 1;
+      res.push(el);
+    }
+  });
+
+  return res;
+}
+
+// console.log(deleteNth([20, 37, 20, 21], 1));
+// console.log(deleteNth([1, 1, 3, 3, 7, 2, 2, 2, 2], 3));
+
+// 10.
+function digPow(n, p) {
+  const arrOfNumbers = n
+    .toString()
+    .split("")
+    .map((n) => Number(n));
+
+  const sum = arrOfNumbers.reduce((sum, n, i) => {
+    return (sum += n ** (p + i));
+  }, 0);
+
+  console.log(sum);
+
+  return sum % n === 0 ? sum / n : -1;
+}
+
+// console.log(digPow(89, 1));
+// console.log(digPow(92, 1));
+// console.log(digPow(46288, 3));
+
+// 11.
+function expandedForm(num) {
+  let res = [];
+
+  const arrOfNumbers = num
+    .toString()
+    .split("")
+    .map((n) => Number(n));
+
+  arrOfNumbers.forEach((n, i) => {
+    if (n === 0) return;
+
+    const countOfZero = arrOfNumbers.length - 1 - i;
+    const num = n * 10 ** countOfZero;
+
+    res.push(num)
+  });
+
+  return res.join(' + ')
+}
+
+// console.log(expandedForm(70304));
+// console.log(expandedForm(42));
