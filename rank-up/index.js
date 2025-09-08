@@ -177,3 +177,43 @@ function sortArray(array) {
 }
 
 // console.log(sortArray([5, 3, 2, 8, 1, 4])); //[1, 3, 2, 8, 5, 4]
+
+// 8.
+function domainName(url) {
+  if (url.includes("://")) {
+    url = url.split("//")[1];
+  }
+
+  url = url.split("/")[0];
+
+  if (url.startsWith("www.")) {
+    url = url.slice(4);
+  }
+
+  return url.split(".")[0];
+}
+
+// console.log(domainName("http://google.com"));
+// console.log(domainName("http://www.zombie-bites.com"));
+
+// 9.
+function comp(array1, array2) {
+  if (array1 === null || array2 === null) return false;
+  if (array1.length !== array2.length) return false;
+
+  const sorted1 = array1.map((x) => x * x).sort((a, b) => a - b);
+  const sorted2 = array2.sort((a, b) => a - b);
+
+  for (let i = 0; i < sorted1.length; i += 1) {
+    if (sorted1[i] !== sorted2[i]) return false;
+  }
+
+  return true;
+}
+
+// console.log(
+//   comp(
+//     [121, 144, 19, 161, 19, 144, 19, 11],
+//     [121, 14641, 20736, 361, 25921, 361, 20736, 361]
+//   )
+// );
